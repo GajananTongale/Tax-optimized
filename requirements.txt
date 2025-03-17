@@ -5,3 +5,4 @@ langchain
 plotly
 pandas
 langchain-community
+youtube-search-python==1.0.2
