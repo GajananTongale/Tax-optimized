@@ -1,0 +1,226 @@
+{
+  "categories": [
+    {
+      "category_id": "tax_filing",
+      "category_name": "📑 ITR Filing Assistant",
+      "workflows": [
+        {
+          "workflow_id": "wf_itr_01",
+          "intent": "file_itr",
+          "subject": "💰 Income Tax Filing Guide",
+          "status": "active",
+          "steps": [
+            {
+              "step_id": "step_1",
+              "bot_response": "📄 Let’s start! Have you gathered all the necessary documents for filing your Income Tax Return? This includes:\n- PAN Number 🔑 Form 16 (salary tax report from employer).Bank Account Details 🏦.Form 26AS (tax passbook) 📘 Investment Proofs (LIC, PPF) for deductions .Have you reviewed Form 26AS to verify TDS entries? 🔍",
+              "user_options": [
+                {
+                  "option_text": "✅ Yes, I have all documents",
+                  "next_step_id": "step_2"
+                },
+                {
+                  "option_text": "❌ No, what else do I need?",
+                  "next_step_id": "step_1b"
+                }
+              ],
+              "metadata": {
+                "video_query": "Documents required for ITR filing",
+                "youtube_link": "https://youtube.com/watch?v=ABCD1234_Docs"
+              }
+            },
+            {
+              "step_id": "step_1b",
+              "bot_response": "🔍 No worries! Here’s a checklist of additional documents you might need:\n\n- Section 80C Deductions: LIC/PPF/ELSS receipts 💰 [1-3]\n- Section 80D: Health insurance premium proofs 🏥 [2, 4, 5]\n- HRA Claims: Rent receipts 🏠 \n- Capital Gains Details (if you sold stocks/property) 📈 \n- Salary Slips 💼 \n\n🎥 *Watch this video for clarity:* [ITR Document Guide](https://youtube.com/watch?v=WXYZ5678_Checklist)",
+              "user_options": [
+                {
+                  "option_text": "✅ Okay, I’ll gather these!",
+                  "next_step_id": "step_2"
+                }
+              ]
+            },
+            {
+              "step_id": "step_2",
+              "bot_response": "📊 Tax Regime Choice\nIndia has two regimes:\n1. Old Regime: More deductions (80C, HRA, etc.)\n2. New Regime: Lower tax rates but fewer benefits \n\nWhich one will you choose?",
+              "user_options": [
+                {
+                  "option_text": "📜 Old Tax Regime",
+                  "next_step_id": "step_3a"
+                },
+                {
+                  "option_text": "🆕 New Tax Regime",
+                  "next_step_id": "step_3a"
+                },
+                {
+                  "option_text": "🤔 Help me decide!",
+                  "next_step_id": "step_2a"
+                }
+              ]
+            },
+            {
+              "step_id": "step_2a",
+              "bot_response": "🧮 Let’s compare!\n- Old Regime: Better if you have investments (LIC, PPF), HRA, or medical claims [2, 3, 5].\n- New Regime: Simpler with flat rates but no major deductions .\n\nUse the official Tax Calculator below to compare liabilities:\n🔗 [Tax Calculator](https://incometax.gov.in/calculator)",
+              "user_options": [
+                {
+                  "option_text": "📲 Yes, use the calculator",
+                  "next_step_id": "step_2b"
+                },
+                {
+                  "option_text": "✅ I’ll choose now",
+                  "next_step_id": "step_3a"
+                }
+              ],
+              "resources": {
+                "tools": [
+                  {
+                    "type": "tax_calculator",
+                    "link": "https://incometax.gov.in/calculator",
+                    "emoji": "🧮"
+                  }
+                ]
+              }
+            },
+            {
+              "step_id": "step_2b",
+              "bot_response": "🔗 Tax Calculator Link: [https://incometax.gov.in/calculator]\n\nAfter comparing, proceed to file! 🚀",
+              "next_step_id": "step_3a"
+            },
+            {
+              "step_id": "step_3a",
+              "bot_response": "🖥️ How would you like to file?\n1. Self-Filing: Use the Income Tax Portal (for confident filers)\n2. Expert Help: Consult a CA/tax advisor",
+              "user_options": [
+                {
+                  "option_text": "🖥️ Self-Filing",
+                  "next_step_id": "step_4a"
+                },
+                {
+                  "option_text": "👩💼 Consult an Expert",
+                  "next_step_id": "step_3b"
+                }
+              ]
+            },
+            {
+              "step_id": "step_3b",
+              "bot_response": "👩💼 Finding an Expert\nSearch for registered tax professionals here:\n🔗 [Tax Experts Directory](https://example.com/tax-experts)\n\n🎥 *Video Guide*: [How to Choose a Tax Advisor](https://youtube.com/watch?v=EFGH9012_Expert)",
+              "metadata": {
+                "search_query": "Find tax expert for ITR filing"
+              }
+            },
+            {
+              "step_id": "step_4a",
+              "bot_response": "🖥️ E-Filing Portal Guide\nVisit the official portal: 🔗 [https://eportal.incometax.gov.in/]\n\nEnsure you have your e-filing password 🔑 [6]. Have you filed online before?",
+              "user_options": [
+                {
+                  "option_text": "✅ Yes, I’m experienced",
+                  "next_step_id": "step_5a"
+                },
+                {
+                  "option_text": "❌ No, first time",
+                  "next_step_id": "step_4b"
+                }
+              ],
+              "resources": {
+                "link": "https://eportal.incometax.gov.in/",
+                "youtube_link": "https://youtube.com/watch?v=IJKL3456_Efile"
+              }
+            },
+            {
+              "step_id": "step_4b",
+              "bot_response": "📘 First-Time Filer?\n1. Register on the portal with PAN.\n2. Choose the correct ITR Form (e.g., ITR-1 for salaried individuals) .\n3. Enter income details and deductions.\n\n🔗 *Guide*: [Which ITR Form to File?](https://cleartax.in/guide/WHICHITRTOFILE)\n🎥 *Tutorial*: [ITR Filing for Beginners](https://youtube.com/watch?v=MNOP7890_Newbie)",
+              "user_options": [
+                {
+                  "option_text": "📝 Show ITR Form Guide",
+                  "next_step_id": "step_4c"
+                },
+                {
+                  "option_text": "✅ I know my form",
+                  "next_step_id": "step_5a"
+                }
+              ]
+            },
+            {
+              "step_id": "step_5a",
+              "bot_response": "✅ Verification Time!\nAfter filing, e-verify using Aadhaar OTP, Net Banking, or Digital Signature. Prefer e-verification?",
+              "user_options": [
+                {
+                  "option_text": "📱 E-Verify Now",
+                  "next_step_id": "step_6a"
+                },
+                {
+                  "option_text": "📮 Send ITR-V Physically",
+                  "next_step_id": "step_6b"
+                }
+              ],
+              "resources": {
+                "link": "https://cleartax.in/GUIDE/HOW-TO-E-VERIFY-YOUR-INCOME-TAX-RETURN-USING-EVC"
+              }
+            },
+            {
+              "step_id": "step_6a",
+              "bot_response": "🔒 E-Verify Successfully!\nFollow this guide: [E-Verification Steps](https://cleartax.in/GUIDE/HOW-TO-E-VERIFY-YOUR-INCOME-TAX-RETURN-USING-EVC)\n\n🎥 *Video Demo*: [E-Verify ITR](https://youtube.com/watch?v=QRST1234_EVerify)",
+              "resources": {
+                "link": "https://cleartax.in/GUIDE/HOW-TO-E-VERIFY-YOUR-INCOME-TAX-RETURN-USING-EVC"
+              }
+            },
+            {
+              "step_id": "step_7",
+              "bot_response": "💸 Refund Status Check\nAfter verification, track your refund here:\n🔗 [Refund Status Portal](https://cleartax.in/GUIDE/CHECKINCOMETAXREFUNDSTATUS)",
+              "user_options": [
+                {
+                  "option_text": "🔍 Check Refund",
+                  "next_step_id": "step_7a"
+                },
+                {
+                  "option_text": "🚫 No thanks",
+                  "next_step_id": "end"
+                }
+              ]
+            },
+            {
+              "step_id": "end",
+              "bot_response": "🎉 All Done! Thank you for using the ITR Filing Assistant. Reach out anytime! 📞"
+            }
+          ],
+          "resources": {
+            "videos": [
+              {
+                "title": "📺 ITR Filing Tutorial",
+                "link": "https://youtube.com/watch?v=ABCD5678_Tutorial",
+                "type": "youtube"
+              }
+            ],
+            "forms": [
+              {
+                "form_name": "📝 ITR-1 (Sahaj)",
+                "link": "https://incometax.gov.in/itr1"
+              }
+            ],
+            "tools": [
+              {
+                "type": "🧮 Tax Calculator",
+                "link": "https://incometax.gov.in/calculator"
+              }
+            ],
+            "links": [
+              {
+                "title": "🔗 Income Tax e-Filing Portal",
+                "link": "https://eportal.incometax.gov.in/"
+              },
+              {
+                "title": "📘 ITR Form Guide",
+                "link": "https://cleartax.in/guide/WHICHITRTOFILE"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "version": "1.2",
+    "youtube_search": "https://langchain-youtube-search/v1?q={video_query}",
+    "ui_config": {
+      "workflow_start_trigger": "category_click",
+      "theme": "💼 Professional Tax Helper"
+    }
+  }
+}
