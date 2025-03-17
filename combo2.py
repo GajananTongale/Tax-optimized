@@ -8,6 +8,8 @@ from pymongo import MongoClient
 from datetime import datetime
 import pandas as pd
 import plotly.express as px
+from gtts import gTTS
+
 
 # Load environment variables
 load_dotenv()
@@ -126,25 +128,51 @@ def get_category_data(category_id):
         None
     )
 
-
+def text_to_speech(text, lang='en'):
+    """Convert text to speech and return audio file"""
+    tts = gTTS(text=text, lang=lang, slow=False)
+    filename = f"tts_{hash(text)}.mp3"
+    tts.save(filename)
+    return filename
 def display_step(step):
     col1, col2 = st.columns([3, 1])
 
     with col1:
-        st.markdown(f"<div class='bot-response'><strong>Tax Assistant:</strong><br>{step['bot_response']}</div>",
-                    unsafe_allow_html=True)
+        with st.container():
+            st.markdown(f"""
+            <div class='styled-container'>
+                <h3 style="color: #2A76B3; margin-bottom: 1.5rem;">📋 {step.get('subject', 'ITR Filing Assistance')}</h3>
+                <div class="styled-input">
+                    {step['bot_response']}
+                </div>
+            """, unsafe_allow_html=True)
 
-        if 'resources' in step:
-            if 'links' in step['resources']:
-                st.markdown("**Relevant Links:**")
-                for link in step['resources']['links']:
-                    st.markdown(f"• [{link['title']}]({link['link']})")
+            # Text-to-speech button
+            if st.button('🔊 Read Aloud', key=f"tts_{step['step_id']}",
+                         help="Listen to this step's instructions",
+                         type="secondary"):
+                audio_file = text_to_speech(step['bot_response'])
+                st.audio(audio_file, format='audio/mp3')
+                os.remove(audio_file)  # Clean up temporary file
 
-        if 'user_options' in step:
-            for option in step['user_options']:
-                if st.button(option['option_text']):
-                    st.session_state.current_step = option['next_step_id']
-                    st.rerun()
+            if 'resources' in step:
+                st.markdown("---")
+                st.markdown("**📌 Helpful Resources:**")
+                for link in step['resources'].get('links', []):
+                    st.markdown(f"- [{link['title']}]({link['link']})")
+
+            st.markdown("</div>", unsafe_allow_html=True)
+
+            # Step navigation buttons
+            if 'user_options' in step:
+                cols = st.columns(len(step['user_options']))
+                for idx, option in enumerate(step['user_options']):
+                    with cols[idx]:
+                        if st.button(option['option_text'],
+                                     key=f"step_{step['step_id']}_option_{idx}",
+                                     on_click=lambda n=option['next_step_id']: st.session_state.update(
+                                         {'current_step': n})):
+                            pass
 
     with col2:
         if 'metadata' in step and 'video_query' in step['metadata']:
@@ -162,8 +190,6 @@ def display_step(step):
                         """, unsafe_allow_html=True)
             except Exception as e:
                 st.error(f"Error loading video: {str(e)}")
-
-
 def expert_consultation():
     with st.form("expert_form", clear_on_submit=True):
         st.subheader("Schedule Expert Consultation")
