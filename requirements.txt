@@ -4,3 +4,4 @@ python-dotenv
 langchain
 plotly
 pandas
+langchain-community
